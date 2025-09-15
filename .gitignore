@@ -1,0 +1,26 @@
+# Node
+node_modules/
+dist/
+.vite/
+.env
+.env.local
+npm-debug.log*
+yarn-error.log
+pnpm-lock.yaml
+
+# Editor
+.vscode/
+.idea/
+
+# Python venv
+.venv/
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated data (optional: don't commit huge datasets)
+output/
+data/tiles/
