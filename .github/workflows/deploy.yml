@@ -6,18 +6,21 @@ on:
       - main
   workflow_dispatch:
 
+# Give the runner permission to push to the repository (required by peaceiris action)
+permissions:
+  contents: write    # <<--- must be write so the action can push gh-pages
+  pages: write
+  id-token: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
     steps:
-      - name: Checkout repo
+      - name: Checkout repo (with credentials for pushing)
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: true   # ensure GITHUB_TOKEN is available for pushes
 
       - name: Use Node.js
         uses: actions/setup-node@v4
@@ -42,7 +45,12 @@ jobs:
       - name: Copy index to 404 for SPA routing
         run: cp dist/index.html dist/404.html
 
-      - name: Deploy to gh-pages
+      - name: Configure git user (helps avoid git errors)
+        run: |
+          git config user.name "github-actions[bot]" || true
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com" || true
+
+      - name: Deploy to gh-pages (peaceiris)
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
