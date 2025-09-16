@@ -33,6 +33,11 @@ jobs:
 
       - name: Build
         run: npm run build
+        
+      - name: Copy star data into dist
+        run: |
+          mkdir -p dist/data
+          cp -r public/hipparcos_sample.ndjson dist/data/hipparcos_sample.ndjson
 
       - name: Show dist contents (debug)
         run: |
