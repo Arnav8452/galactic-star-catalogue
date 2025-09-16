@@ -20,7 +20,3 @@ __pycache__/
 # OS
 .DS_Store
 Thumbs.db
-
-# Generated data (optional: don't commit huge datasets)
-output/
-data/tiles/
